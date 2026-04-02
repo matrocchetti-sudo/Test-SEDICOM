@@ -123,3 +123,9 @@ When using this skill:
 1. Explain the actual cause of the issue, not just the final code diff.
 2. Reference the build or test command used for verification.
 3. Call out any assumptions about compiler version, standard level, platform, or dependency manager if they affect the result.
+
+## Comments
+
+1. Use /// for API documentation
+2. Use // for everything else
+3. Do not use /* */

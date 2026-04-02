@@ -8,4 +8,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(CTest)
 
+add_executable(expense
+    src/CLI_Interface.cpp
+    src/DataHandler.cpp
+    src/ExpenseManager.cpp
+    src/main.cpp
+)
+
+target_include_directories(expense PRIVATE include)
+
 message(STATUS "ExpenseTracker project scaffold configured")
