@@ -26,6 +26,7 @@ Prefer the smallest correct change.
 4. Make interfaces explicit with `const`, references, `std::span`, `std::string_view`, `enum class`, and strong types where that improves correctness without fighting the existing codebase.
 5. Keep headers lean. Include only what is needed, prefer forward declarations when they reduce coupling, and avoid putting heavy implementation details into headers unless the project intentionally uses header-only patterns.
 6. Do not extract helpers aggressively. Inline simple logic unless reuse or complexity clearly justifies a new function or class.
+7. Prefer `struct` over `class` for POD-style domain data and passive data carriers. Use `class` only when the type owns behavior, invariants, or encapsulation that materially benefits from access control.
 
 ## Build Workflow
 
