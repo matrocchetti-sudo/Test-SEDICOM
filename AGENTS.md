@@ -1,0 +1,21 @@
+# Agent Notes
+- Current state: this repo is specification-first; only [README.md](file:///home/mikymod/work/jmp/other/sedicom/test-sedicom/README.md) exists, so treat architecture and commands below as the intended C++ implementation contract, not checked-in code.
+- External agent rules: no `AGENTS.md`/`AGENT.md`, `.cursor/rules/`, `.cursorrules`, `CLAUDE.md`, `.windsurfrules`, `.clinerules`, `.goosehints`, or `.github/copilot-instructions.md` are present.
+- Language/tooling target: C++17 or newer, CMake-based build, CLI application for personal expense tracking.
+- Expected modules from the spec: `Expense` model, `ExpenseManager` controller/service, `DataHandler` persistence layer, and `CLI_Interface` presentation layer.
+- Data model: `Expense { id, amount, category, date, description }`; persist records in local `expenses.csv` or JSON beside the executable.
+- Likely structure when code is added: `src/` for implementation, `include/` for public headers, `tests/` for unit/integration tests, `data/` or runtime working directory for sample files.
+- There are no subprojects, databases, or network APIs yet; persistence is file-based only and should remain local/offline unless the README changes.
+- Build discovery: first look for `CMakeLists.txt` or `CMakePresets.json`; if they are still absent, do not invent build steps in code changes without adding the required files.
+- Default configure command once CMake exists: `cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug`.
+- Default build command once CMake exists: `cmake --build build -j`.
+- Run the app from the build output, e.g. `./build/expense list`, and keep CLI commands aligned with the README examples.
+- Test command once `enable_testing()` exists: `ctest --test-dir build --output-on-failure`.
+- Single-test command once tests exist: `ctest --test-dir build -R <test-name> --output-on-failure`.
+- If the repo adds a named test binary instead of CTest discovery, prefer running that binary directly with its filter flag and document the exact syntax in code or comments.
+- Lint/format are not configured yet; if added, prefer `clang-format -i <files>` and `clang-tidy` wired through CMake or `compile_commands.json`.
+- Style: match existing repository conventions first; otherwise prefer small RAII-based classes/functions, value semantics, `const` correctness, and standard-library containers/utilities over custom abstractions.
+- Includes: keep standard headers, third-party headers, and project headers grouped separately; include only what each file uses and keep headers lightweight.
+- Naming: use descriptive PascalCase for types, camelCase for functions/variables, and `kCamelCase` or project-consistent form for constants; avoid abbreviations unless domain-standard.
+- Error handling: validate CLI input early, return actionable messages for invalid arguments or file corruption, and avoid silent fallbacks that could hide data loss.
+- Changes should stay scoped to the modular boundaries in the README: business logic in manager/controller code, file I/O in persistence code, and formatting/argument parsing in the CLI layer.
